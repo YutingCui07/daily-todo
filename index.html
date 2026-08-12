@@ -69,4 +69,22 @@ document.getElementById('taskForm').onsubmit=e=>{e.preventDefault();let t=editin
   cloud.channel('tasks-live').on('postgres_changes',{event:'*',schema:'public',table:'tasks'},()=>{if(cloudUser&&!loadingCloud)pullCloud()}).subscribe();
   cloud.channel('notes-live').on('postgres_changes',{event:'*',schema:'public',table:'daily_notes'},()=>{if(cloudUser&&!loadingCloud)pullCloud()}).subscribe();
 })();
-</script></body></html>
+<script>
+/* 密码登录覆盖层：避免重复发送邮箱登录链接。 */
+(function(){
+  const url='https://skhyikcamjsgedrzgwet.supabase.co',key='sb_publishable_0uWHw19LMorR1f9Hs7hOYA_fKaRt0Qe',app='https://yutingcui07.github.io/daily-todo/';
+  const authClient=window.supabase.createClient(url,key); let mode='login';
+  function openPasswordBox(){
+    if(document.getElementById('passwordCloudBox'))return;
+    const box=document.createElement('div');box.id='passwordCloudBox';box.style='position:fixed;inset:0;background:#2d244766;display:grid;place-items:center;padding:20px;z-index:30';
+    box.innerHTML='<div style="background:#fff;border-radius:24px;padding:28px;width:min(440px,100%);box-shadow:0 20px 60px #2d244633"><div style="font-size:25px;margin-bottom:6px">☁️ 连接云端同步</div><p style="color:#8b839d;margin-top:0">使用邮箱和密码登录，手机和电脑就能看到同一批任务。</p><div style="display:flex;gap:8px;margin-bottom:12px"><button id="pwdLogin" style="flex:1;background:#8065d8;color:#fff;padding:10px;border-radius:10px">登录</button><button id="pwdRegister" style="flex:1;background:#f0ebff;color:#8065d8;padding:10px;border-radius:10px">首次注册</button></div><input id="pwdEmail" type="email" placeholder="你的邮箱地址" style="width:100%;padding:12px;border:1px solid #ece6f8;border-radius:12px;box-sizing:border-box"><input id="pwdPassword" type="password" placeholder="密码（至少 6 位）" style="width:100%;margin-top:10px;padding:12px;border:1px solid #ece6f8;border-radius:12px;box-sizing:border-box"><button id="pwdSend" style="width:100%;margin-top:12px;background:#8065d8;color:#fff;border:0;padding:12px;border-radius:12px">登录并同步</button><div id="pwdMsg" style="color:#8b839d;font-size:13px;margin-top:12px"></div><button id="pwdLocal" style="margin-top:12px;background:#f0ebff;color:#8065d8;border:0;padding:10px 14px;border-radius:12px">先使用本机模式</button></div>';
+    document.body.appendChild(box);const login=document.getElementById('pwdLogin'),register=document.getElementById('pwdRegister'),send=document.getElementById('pwdSend'),msg=document.getElementById('pwdMsg');
+    function setMode(next){mode=next;const isLogin=mode==='login';login.style.background=isLogin?'#8065d8':'#f0ebff';login.style.color=isLogin?'#fff':'#8065d8';register.style.background=isLogin?'#f0ebff':'#8065d8';register.style.color=isLogin?'#8065d8':'#fff';send.textContent=isLogin?'登录并同步':'注册并同步';msg.textContent='';}
+    login.onclick=()=>setMode('login');register.onclick=()=>setMode('register');
+    send.onclick=async()=>{const email=document.getElementById('pwdEmail').value.trim(),password=document.getElementById('pwdPassword').value;if(!email||password.length<6){msg.textContent='请输入邮箱，并设置至少 6 位密码。';return;}send.disabled=true;msg.textContent='正在连接…';const result=mode==='login'?await authClient.auth.signInWithPassword({email,password}):await authClient.auth.signUp({email,password,options:{emailRedirectTo:app}});send.disabled=false;if(result.error){msg.textContent=result.error.message;}else if(mode==='register'&&!result.data.session){msg.textContent='注册成功！请查收一次确认邮件，确认后回到这里登录。';}else{box.remove();}};
+    document.getElementById('pwdLocal').onclick=()=>box.remove();
+  }
+  function wire(){const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('连接云端'));if(!b)return false;b.onclick=async()=>{const {data}=await authClient.auth.getSession();if(data.session)await authClient.auth.signOut();else openPasswordBox();};return true;}
+  let tries=0;const timer=setInterval(()=>{if(wire()||++tries>20)clearInterval(timer);},250);
+})();
+</script></script></body></html>
