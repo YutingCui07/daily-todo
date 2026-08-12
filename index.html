@@ -31,6 +31,29 @@ body{background:radial-gradient(circle at 90% 0,#fff0f4 0,#fffaf7 42%,#f8f1ff 10
 .yuplan-sticker-layer img:nth-child(2){width:82px;left:-35px;bottom:65px;transform:rotate(-6deg)}
 .yuplan-sticker-layer img:nth-child(3){width:88px;right:18px;bottom:-32px;transform:rotate(4deg)}
 @media(max-width:850px){.yuplan-sticker-layer{display:none}.yuplan-art-grid{height:180px;grid-template-rows:110px 70px;gap:3px;padding:5px}}
+</style><style>
+/* YuPlan 整体窗口式手绘布局 */
+html{background:#fffaf7}
+body{background:#fffaf7;min-height:100vh}
+.app{position:relative;width:calc(100% - 72px);min-height:calc(100vh - 72px);margin:36px auto;border:2px solid #ef91aa;border-radius:28px;overflow:hidden;background:#fffdfd;box-shadow:0 20px 60px #9b6b7b2b;padding-top:48px}
+.app:before{content:'●  ●  ●　　　　　　　　　　　　 YuPlan　♡';position:absolute;z-index:4;left:0;right:0;top:0;height:48px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid #f0b3c0;color:#ed7895;font:600 18px/1 "Comic Sans MS","Microsoft YaHei",sans-serif;letter-spacing:1px;background:#fffafa}
+.side{height:calc(100vh - 120px);background:#fffafa;border-right:1px solid #f0b7c4;padding-top:28px}
+.main{position:relative;padding-top:22px;background:linear-gradient(135deg,#fffdfc 0,#fff9fb 70%,#f5edff 100%)}
+.top h1{font-size:30px}
+.primary{background:#f28aa8;border:1px solid #e86d8d;border-radius:11px;box-shadow:3px 4px 0 #d95d7b44}
+.ghost{background:#fff0f4;border:1px solid #efa0b2;color:#c54a6b}
+.card,.stat{border:1px solid #efc0cc;border-radius:17px;box-shadow:4px 5px 0 #e9b8c733}
+.card h2{color:#3a3a3a}
+.quick input,.search input,.form input,.form textarea,.form select{border-color:#e9b4c2;background:#fffafa}
+.task{border-top-color:#f2cbd4}
+.nav button.active,.nav button:hover{background:#ffdce6;color:#c64b6e}
+.yuplan-art-grid{display:none!important}
+.yuplan-sticker-layer{position:fixed!important;inset:0!important;z-index:10!important;pointer-events:none!important}
+.yuplan-sticker-layer img{position:absolute!important;object-fit:contain!important;filter:drop-shadow(4px 5px 2px #74515835)!important}
+.yuplan-sticker-layer img:nth-child(1){width:170px!important;right:22px!important;top:120px!important;transform:rotate(5deg)!important}
+.yuplan-sticker-layer img:nth-child(2){width:120px!important;left:18px!important;bottom:90px!important;transform:rotate(-6deg)!important}
+.yuplan-sticker-layer img:nth-child(3){width:125px!important;right:18px!important;bottom:90px!important;transform:rotate(4deg)!important}
+@media(max-width:850px){.app{width:calc(100% - 16px);min-height:calc(100vh - 16px);margin:8px auto;border-radius:20px;padding-top:42px}.app:before{height:42px;font-size:14px}.side{height:auto}.main{padding-top:18px}.yuplan-sticker-layer{display:none!important}}
 </style></head>
 <body>
 <div class="app"><aside class="side"><div class="brand"><div class="logo">✦</div><div><b>YuPlan</b><small>专注每一天</small></div></div><nav class="nav" id="nav"></nav><div class="side-note">数据只保存在本机浏览器<br>不登录、不上传、不依赖插件</div></aside>
