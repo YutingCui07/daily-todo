@@ -121,4 +121,14 @@ document.getElementById('taskForm').onsubmit=e=>{e.preventDefault();let t=editin
   addDetailsButton();
   new MutationObserver(addDetailsButton).observe(document.body,{childList:true,subtree:true});
 })();
+<script>
+/* 兜底绑定新建任务按钮，避免旧缓存或移动端点击失效。 */
+document.addEventListener('click',function(e){
+  const b=e.target.closest('button');
+  if(!b)return;
+  if(b.textContent.includes('新建任务')||b.textContent.trim()==='详细添加'){
+    e.preventDefault();
+    if(typeof openModal==='function')openModal();
+  }
+});
 </script></script></body></html>
