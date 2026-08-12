@@ -13,7 +13,25 @@
 </style>
 <style>.yuplan-art-card{overflow:hidden;position:relative}.yuplan-art-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:0 0 14px}.yuplan-art-grid img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:12px;display:block}.yuplan-art-note{position:relative;z-index:1}@media(max-width:850px){.yuplan-art-grid{gap:5px}.yuplan-art-grid img{border-radius:9px}}</style>
 <style>.modal-box{margin:auto;width:min(560px,calc(100vw - 32px))}.reminder-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;color:#6e6681;font-weight:700}.reminder-row input{width:18px;height:18px;margin:0}.reminder-row select{width:auto;min-width:150px;border:1px solid var(--line);background:#fcfbff;border-radius:12px;padding:10px 12px}</style>
-</head>
+<style>
+/* YuPlan 手绘贴纸版视觉试用 */
+body{background:radial-gradient(circle at 90% 0,#fff0f4 0,#fffaf7 42%,#f8f1ff 100%)}
+.side{background:#fffafbb8;border-right-color:#f4d7df}
+.logo{background:linear-gradient(135deg,#ffd2df,#f28aa8);box-shadow:0 8px 20px #ef8aa844}
+.nav button.active,.nav button:hover{background:#ffdce6;color:#c64b6e}
+.primary{background:#f28aa8;box-shadow:0 8px 18px #ef8aa844}
+.card,.stat{border-color:#f1dce3}
+.yuplan-art-card{position:relative;overflow:visible}
+.yuplan-art-grid{height:240px;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:145px 95px;gap:5px;padding:8px;border:1px dashed #ef9db0;border-radius:18px;background:#fffaf7;margin:-3px -3px 14px;overflow:hidden}
+.yuplan-art-grid img{width:100%;height:100%;object-fit:contain;display:block;border-radius:10px}
+.yuplan-art-grid img:first-child{grid-column:span 2;grid-row:span 2}
+.yuplan-sticker-layer{position:absolute;inset:0;pointer-events:none;z-index:2}
+.yuplan-sticker-layer img{position:absolute;object-fit:contain;filter:drop-shadow(3px 4px 2px #74515830)}
+.yuplan-sticker-layer img:nth-child(1){width:112px;right:-42px;top:110px;transform:rotate(5deg)}
+.yuplan-sticker-layer img:nth-child(2){width:82px;left:-35px;bottom:65px;transform:rotate(-6deg)}
+.yuplan-sticker-layer img:nth-child(3){width:88px;right:18px;bottom:-32px;transform:rotate(4deg)}
+@media(max-width:850px){.yuplan-sticker-layer{display:none}.yuplan-art-grid{height:180px;grid-template-rows:110px 70px;gap:3px;padding:5px}}
+</style></head>
 <body>
 <div class="app"><aside class="side"><div class="brand"><div class="logo">✦</div><div><b>YuPlan</b><small>专注每一天</small></div></div><nav class="nav" id="nav"></nav><div class="side-note">数据只保存在本机浏览器<br>不登录、不上传、不依赖插件</div></aside>
 <main class="main"><div class="top"><div><div class="eyebrow">个人效率空间</div><h1 id="greeting">下午好，今天也要元气满满</h1><div class="date" id="todayLabel"></div></div><button class="primary" onclick="openModal()">＋ 新建任务</button></div>
