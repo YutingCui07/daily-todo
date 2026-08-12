@@ -38,6 +38,7 @@ document.getElementById('taskForm').onsubmit=e=>{e.preventDefault();let t=editin
 /* 云端同步层：Supabase + 邮箱魔法链接。没有登录时仍可使用本地模式。 */
 (async function(){
   const CLOUD_URL='https://skhyikcamjsgedrzgwet.supabase.co';
+  const PUBLIC_APP_URL='https://yutingcui07.github.io/daily-todo/';
   const CLOUD_KEY='sb_publishable_0uWHw19LMorR1f9Hs7hOYA_fKaRt0Qe';
   const cloud=window.supabase.createClient(CLOUD_URL,CLOUD_KEY);
   let cloudUser=null, cloudReady=false, loadingCloud=false;
@@ -53,7 +54,7 @@ document.getElementById('taskForm').onsubmit=e=>{e.preventDefault();let t=editin
     if(document.getElementById('cloudBox'))return;
     const box=document.createElement('div');box.id='cloudBox';box.style='position:fixed;inset:0;background:#2d244766;display:grid;place-items:center;padding:20px;z-index:20';
     box.innerHTML='<div style="background:#fff;border-radius:24px;padding:28px;width:min(440px,100%);box-shadow:0 20px 60px #2d244633"><div style="font-size:25px;margin-bottom:6px">☁️ 连接云端同步</div><p style="color:#8b839d;margin-top:0">用同一个邮箱登录，手机和电脑就能看到同一批任务。</p><input id="cloudEmail" type="email" placeholder="你的邮箱地址" style="width:100%;padding:12px;border:1px solid #ece6f8;border-radius:12px;box-sizing:border-box"><button id="cloudSend" style="width:100%;margin-top:12px;background:#8065d8;color:#fff;border:0;padding:12px;border-radius:12px;cursor:pointer">发送登录链接</button><div id="cloudMsg" style="color:#8b839d;font-size:13px;margin-top:12px"></div><button id="cloudLocal" style="margin-top:12px;background:#f0ebff;color:#8065d8;border:0;padding:10px 14px;border-radius:12px;cursor:pointer">先使用本机模式</button></div>';
-    document.body.appendChild(box);document.getElementById('cloudSend').onclick=async()=>{const email=document.getElementById('cloudEmail').value.trim();if(!email)return;const {error}=await cloud.auth.signInWithOtp({email,options:{emailRedirectTo:location.href}});document.getElementById('cloudMsg').textContent=error?error.message:'登录链接已发送，请去邮箱点击确认。';};document.getElementById('cloudLocal').onclick=()=>box.remove();
+    document.body.appendChild(box);document.getElementById('cloudSend').onclick=async()=>{const email=document.getElementById('cloudEmail').value.trim();if(!email)return;const {error}=await cloud.auth.signInWithOtp({email,options:{emailRedirectTo:PUBLIC_APP_URL}});document.getElementById('cloudMsg').textContent=error?error.message:'登录链接已发送，请去邮箱点击确认。';};document.getElementById('cloudLocal').onclick=()=>box.remove();
   }
   function cloudButton(){const b=document.createElement('button');b.textContent='☁️ 连接云端';b.style='position:fixed;right:18px;bottom:18px;background:#8065d8;color:#fff;padding:11px 14px;border-radius:13px;box-shadow:0 8px 20px #8065d83b;z-index:3;cursor:pointer';b.onclick=()=>cloudUser?cloud.auth.signOut():cloudBox();document.body.appendChild(b);return b}
   const cloudBtn=cloudButton();
